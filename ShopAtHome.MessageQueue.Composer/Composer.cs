@@ -502,7 +502,7 @@ namespace ShopAtHome.MessageQueue.Composer
                 numNewWorkers = Utilities.GetNumWorkersToScaleWith(numNewWorkers, reportData.Queue, mostLimitedSystem, affectedWorkflow);
 
                 var workerConfiguration = GetWorkerConfiguration(reportData.Queue);
-                for (var i = numActiveWorkers; i < numNewWorkers; i++)
+                for (var i = 0; i < numNewWorkers; i++)
                 {
                     _actorManager.CreateAndStartWorker(workerConfiguration, _dependencyResolver);
                 }
