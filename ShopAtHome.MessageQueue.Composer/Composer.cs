@@ -496,8 +496,10 @@ namespace ShopAtHome.MessageQueue.Composer
                     // We don't want to STOP processing, just slow down
                     numWorkersRequired = 1;
                 }
+
+                var numNewWorkers = numWorkersRequired - numActiveWorkers;
                 var affectedWorkflow = _orderedWorkflowQueueIdentifiers.FirstOrDefault(x => x.Contains(reportData.Queue)) ?? new List<string>();
-                var numNewWorkers = Utilities.GetNumWorkersToScaleWith(numWorkersRequired, reportData.Queue, mostLimitedSystem, affectedWorkflow);
+                numNewWorkers = Utilities.GetNumWorkersToScaleWith(numNewWorkers, reportData.Queue, mostLimitedSystem, affectedWorkflow);
 
                 var workerConfiguration = GetWorkerConfiguration(reportData.Queue);
                 for (var i = numActiveWorkers; i < numNewWorkers; i++)
@@ -548,6 +550,10 @@ namespace ShopAtHome.MessageQueue.Composer
                     case WorkerReportStatus.FatalError:
                         // For now, just turn the dead worker off
                         _actorManager.Deactivate(reportData);
+                        if (_dynamicallyKeyedWorkerConfigurations.ContainsKey(reportData.SourceQueue))
+                        {
+                            _dynamicallyKeyedWorkerConfigurations.Remove(reportData.SourceQueue);
+                        }
                         break;
                     case WorkerReportStatus.ExileMessage:
                         // A message has been causing our workers to die regularly! They've already removed it from their work queue,
