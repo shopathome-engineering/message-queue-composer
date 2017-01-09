@@ -547,7 +547,6 @@ namespace ShopAtHome.MessageQueue.Composer
                         {
                             _dynamicallyKeyedWorkerConfigurations.Remove(reportData.SourceQueue);
                             _actorManager.DeactiveListener(reportData.SourceQueue);
-                            
                         }
                         break;
                     case WorkerReportStatus.FatalError:
