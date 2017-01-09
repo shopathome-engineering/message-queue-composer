@@ -436,6 +436,7 @@ namespace ShopAtHome.MessageQueue.Composer
                 };
                 _dynamicallyKeyedWorkerConfigurations.Add(request.SourceQueueIdentifier, workerConfiguration);
                 _actorManager.CreateAndStartKeyedSoloListener(listenerConfiguration, _dependencyResolver, request.Key, request.KeyType);
+                _listenerConfigurations.Add(listenerConfiguration);
             }
             catch (Exception ex)
             {
@@ -545,15 +546,13 @@ namespace ShopAtHome.MessageQueue.Composer
                         if (_dynamicallyKeyedWorkerConfigurations.ContainsKey(reportData.SourceQueue))
                         {
                             _dynamicallyKeyedWorkerConfigurations.Remove(reportData.SourceQueue);
+                            _actorManager.DeactiveListener(reportData.SourceQueue);
+                            
                         }
                         break;
                     case WorkerReportStatus.FatalError:
                         // For now, just turn the dead worker off
                         _actorManager.Deactivate(reportData);
-                        if (_dynamicallyKeyedWorkerConfigurations.ContainsKey(reportData.SourceQueue))
-                        {
-                            _dynamicallyKeyedWorkerConfigurations.Remove(reportData.SourceQueue);
-                        }
                         break;
                     case WorkerReportStatus.ExileMessage:
                         // A message has been causing our workers to die regularly! They've already removed it from their work queue,

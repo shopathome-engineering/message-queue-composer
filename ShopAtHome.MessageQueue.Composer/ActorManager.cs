@@ -76,6 +76,15 @@ namespace ShopAtHome.MessageQueue.Composer
             ActiveListeners.TryRemove(DebugModeStringHandler.UnmakeDebugIdentifierValue(actor.QueueBeingMonitored), out actor);
         }
 
+        public void DeactiveListener(string sourceQueueIdentifier)
+        {
+            if (!ActiveListeners.ContainsKey(sourceQueueIdentifier))
+            {
+                return;
+            }
+            Deactivate(ActiveListeners[sourceQueueIdentifier]);
+        }
+
         public void Deactivate()
         {
             foreach (var workedQueue in ActiveWorkers)

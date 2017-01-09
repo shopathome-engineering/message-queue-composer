@@ -25,6 +25,8 @@ namespace ShopAtHome.MessageQueue.Composer
 
         void Deactivate(Listener actor);
 
+        void DeactiveListener(string sourceQueueIdentifier);
+
         /// <summary>
         /// Deactivates all actors
         /// </summary>
