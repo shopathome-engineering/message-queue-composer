@@ -15,17 +15,26 @@ namespace ShopAtHome.MessageQueue.Composer
     {
         private static readonly ConcurrentDictionary<string, ConcurrentBag<BaseWorker>> ActiveWorkers = new ConcurrentDictionary<string, ConcurrentBag<BaseWorker>>();
         private static readonly ConcurrentDictionary<string, Listener> ActiveListeners = new ConcurrentDictionary<string, Listener>();
+        private const int DefaultMaxNumWorkersPerGroup = 10;
+        public int MaxNumWorkersPerGroup { get; private set; }
+
+        public ActorManager() => MaxNumWorkersPerGroup = DefaultMaxNumWorkersPerGroup;
+        public ActorManager(int maxNumWorkersPerGroup) => MaxNumWorkersPerGroup = maxNumWorkersPerGroup;
 
         public Action<Exception> OnErrorBehavior { get; set; }
 
         public void StartActor(string actorGroupingIdentifier, BaseWorker actor)
         {
             var key = DebugModeStringHandler.UnmakeDebugIdentifierValue(actorGroupingIdentifier);
-            Start(actor);
             if (!ActiveWorkers.ContainsKey(key))
             {
                 ActiveWorkers.GetOrAdd(key, new ConcurrentBag<BaseWorker>());
             }
+            if (ActiveWorkers[key].Count >= MaxNumWorkersPerGroup)
+            {
+                return;
+            }
+            Start(actor);
             ActiveWorkers[key].Add(actor);
         }
 

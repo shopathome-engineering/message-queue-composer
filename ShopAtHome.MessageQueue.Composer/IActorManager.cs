@@ -10,6 +10,7 @@ namespace ShopAtHome.MessageQueue.Composer
     public interface IActorManager
     {
         Action<Exception> OnErrorBehavior { get; set; }
+        int MaxNumWorkersPerGroup { get; }
 
         void StartActor(string actorGroupingIdentifier, BaseWorker actor);
 

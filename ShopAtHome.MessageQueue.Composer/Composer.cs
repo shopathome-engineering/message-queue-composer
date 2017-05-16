@@ -505,7 +505,12 @@ namespace ShopAtHome.MessageQueue.Composer
                 var workerConfiguration = GetWorkerConfiguration(reportData.Queue);
                 for (var i = 0; i < numNewWorkers; i++)
                 {
+                    if (numActiveWorkers >= _actorManager.MaxNumWorkersPerGroup)
+                    {
+                        break;
+                    }
                     _actorManager.CreateAndStartWorker(workerConfiguration, _dependencyResolver);
+                    numActiveWorkers++;
                 }
             }
             catch (Exception ex)
