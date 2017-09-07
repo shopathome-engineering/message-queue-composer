@@ -37,35 +37,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.4.0\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>Packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.6.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>Packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ShopAtHome.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>Packages\ShopAtHome.Logging.1.2.0\lib\net45\ShopAtHome.Logging.dll</HintPath>
+      <HintPath>..\Packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ShopAtHome.MessageQueue.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue.Consumers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Consumers.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Consumers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue.Statistics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Statistics.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Statistics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -92,7 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShopAtHome.MessageQueue.Configuration\ShopAtHome.MessageQueue.Configuration.csproj">

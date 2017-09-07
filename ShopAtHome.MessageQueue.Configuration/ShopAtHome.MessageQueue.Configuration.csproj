@@ -47,39 +47,39 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <HintPath>..\\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\Packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
+      <HintPath>..\Packages\Dapper.1.40\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\Packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.6.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\Packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\Packages\RabbitMQ.Client.3.6.1\lib\net45\RabbitMQ.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.DapperORMCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\ShopAtHome.DapperORMCore.2.5.0\lib\net45\ShopAtHome.DapperORMCore.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.DapperORMCore.2.5.0\lib\net45\ShopAtHome.DapperORMCore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\ShopAtHome.MessageQueue.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue.Consumers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Consumers.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Consumers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShopAtHome.MessageQueue.Statistics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\ShopAtHome.MessageQueue.Composer\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Statistics.dll</HintPath>
+      <HintPath>..\packages\ShopAtHome.MessageQueue.Consumers.1.2.0.0\lib\net45\ShopAtHome.MessageQueue.Statistics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -113,7 +113,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\ShopAtHome.MessageQueue.Composer\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\ShopAtHome.MessageQueue.Composer\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

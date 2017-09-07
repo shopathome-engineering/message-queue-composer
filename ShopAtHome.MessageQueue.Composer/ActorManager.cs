@@ -18,7 +18,7 @@ namespace ShopAtHome.MessageQueue.Composer
         private const int DefaultMaxNumWorkersPerGroup = 10;
         public int MaxNumWorkersPerGroup { get; private set; }
 
-        public ActorManager() => MaxNumWorkersPerGroup = DefaultMaxNumWorkersPerGroup;
+        public ActorManager() : this(DefaultMaxNumWorkersPerGroup) { }
         public ActorManager(int maxNumWorkersPerGroup) => MaxNumWorkersPerGroup = maxNumWorkersPerGroup;
 
         public Action<Exception> OnErrorBehavior { get; set; }
@@ -125,19 +125,41 @@ namespace ShopAtHome.MessageQueue.Composer
             }
         }
 
+        static char[] queueNameKeySeparators = new[] { '|', '_', '^' };
         public void ReplaceInactiveListeners(List<IListenerConfiguration> listenerConfigurations, IContainer dependencyResolver)
         {
             var listenersToReplace = ActiveListeners.Values.Where(listener => !listener.IsRunning).ToList();
             foreach (var listener in listenersToReplace)
             {
+                Deactivate(listener);
                 var configuration = listenerConfigurations.FirstOrDefault(x => x.SourceQueue == listener.QueueBeingMonitored);
                 if (configuration == null)
                 {
-                    Listener unconfiguredListener;
-                    ActiveListeners.TryRemove(listener.QueueBeingMonitored, out unconfiguredListener);
                     continue;
                 }
-
+                var listenerType = listener.GetType();
+                if (listenerType.BaseType.IsGenericType)
+                {
+                    // must be a solo keyed listener, so we need specific behavior here
+                    try
+                    {
+                        // pure guess here, no clue how clients might specify these keys (if they'll even put them in the name)
+                        // might be worth providing some infrastructure around conventional queue names for the keyed ones
+                        if (listener.QueueBeingMonitored.IndexOfAny(queueNameKeySeparators) < 0)
+                        {
+                            throw new InvalidOperationException($"Cannot recover key from queue name {listener.QueueBeingMonitored}. The key must be present at the end of the name and delimited by a separator character. Legal separators are: {string.Join(", ", queueNameKeySeparators)}");
+                        }
+                        var keyType = listenerType.BaseType.GetGenericArguments()[0];
+                        var keyValue = listener.QueueBeingMonitored.Split(queueNameKeySeparators).Last();
+                        CreateAndStartKeyedSoloListener(configuration, dependencyResolver, keyValue, keyType);
+                    }
+                    catch(Exception ex)
+                    {
+                        // don't let this bubble up - just accept that we can't recover the listener, log the error, and move on
+                        OnErrorBehavior(ex);
+                    }
+                    continue;
+                }
                 var newListener = ActorFactory.Create<Listener>(dependencyResolver, configuration).ConfigureListener(configuration);
                 StartActor(newListener);
             }

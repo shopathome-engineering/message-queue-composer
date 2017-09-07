@@ -286,8 +286,6 @@ namespace ShopAtHome.MessageQueue.Composer
             _connectionFactory.DeleteQueue(GetWorkerReportQueueName());
             _connectionFactory.DeleteQueue(GetListenerReportQueueName());
             _connectionFactory.DeleteQueue(GetComposerActionQueueName());
-            // delete any left-over dynamic queues
-            _dynamicallyKeyedWorkerConfigurations.Keys.ToList().ForEach(_connectionFactory.DeleteQueue);
         }
 
         private void Configure(IConfigurationProvider configurationProvider)
